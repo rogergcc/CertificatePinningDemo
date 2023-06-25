@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.rogergcc.certificatepinningdemo.FirstFragment"
-        android:label="@string/first_fragment_label"
+        android:label="Search User"
         tools:layout="@layout/fragment_first">
 
         <action
