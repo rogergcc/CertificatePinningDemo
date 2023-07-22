@@ -1,7 +1,10 @@
-package com.rogergcc.certificatepinningdemo.network
+package com.rogergcc.certificatepinningdemo.data.cloud
 
 import com.google.gson.Gson
 import com.rogergcc.certificatepinningdemo.BuildConfig
+import com.rogergcc.certificatepinningdemo.data.cloud.response.GitHubReposResponse
+import com.rogergcc.certificatepinningdemo.data.cloud.response.GithubUserResponse
+import com.rogergcc.certificatepinningdemo.domain.GithubUserDomain
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -69,16 +72,23 @@ object GithubApi {
 interface GithubApiService {
     @GET("/users/{profile}")
     fun getUserData(@Path("profile") profile: String):
-            Call<GithubUser>
+            Call<GithubUserDomain>
 
     @GET("/users/{profile}")
-    suspend fun getUserDataNew(@Path("profile") profile: String):
-            ResponseGithubUser
+    suspend fun getUsersData(@Path("profile") profile: String):
+            GithubUserResponse
 
-    //las respuestas varian segun el tipo de respuesta {message: "Not Found", documentation_url: "https://docs.github.com/rest/reference/users#get-a-user"}
-    //o {login: "rogergcc", id: 1068192, node_id: "MDQ6VXNlcjEwNjgxOTI=", avatar_url: "https://avatars.githubusercontent.com/u/1068192?v=4", gravatar_id: "", …}
+    //las respuestas varian segun el tipo de respuesta
+    // Si no encuentra el usuario => {message: "Not Found", documentation_url: "https://docs.github.com/rest/reference/users#get-a-user"}
+    //Caso ok {login: "rogergcc", id: 1068192, node_id: "MDQ6VXNlcjEwNjgxOTI=", avatar_url: "https://avatars.githubusercontent.com/u/1068192?v=4", gravatar_id: "", …}
     @GET("users/{profile}")
-    suspend fun getUserDataResponse(@Path("profile") profile: String): Response<ResponseBody>
+    suspend fun getUserDataResponseBody(@Path("profile") profile: String): Response<ResponseBody>
+
+    @GET("users/{profile}")
+    suspend fun getUserResponse(@Path("profile") profile: String): Response<GithubUserResponse>
+
+    @GET("/repositories")
+    suspend fun getRepositories(): Response<List<GitHubReposResponse>>
 }
 
 object GsonProvider {

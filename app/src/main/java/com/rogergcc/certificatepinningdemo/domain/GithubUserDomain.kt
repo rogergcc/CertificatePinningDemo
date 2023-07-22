@@ -1,7 +1,7 @@
-package com.rogergcc.certificatepinningdemo.network
+package com.rogergcc.certificatepinningdemo.domain
 
 
-data class GithubUser(
+data class GithubUserDomain(
 
     var login: String,
     var avatarUrl: String,

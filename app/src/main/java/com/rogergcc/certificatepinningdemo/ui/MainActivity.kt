@@ -1,4 +1,4 @@
-package com.rogergcc.certificatepinningdemo
+package com.rogergcc.certificatepinningdemo.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -10,6 +10,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
+import com.rogergcc.certificatepinningdemo.BuildConfig
+import com.rogergcc.certificatepinningdemo.R
 import com.rogergcc.certificatepinningdemo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

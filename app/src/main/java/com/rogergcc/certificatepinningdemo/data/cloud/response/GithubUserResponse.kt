@@ -1,9 +1,9 @@
-package com.rogergcc.certificatepinningdemo.network
+package com.rogergcc.certificatepinningdemo.data.cloud.response
 
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseGithubUser(
+data class GithubUserResponse(
     @SerializedName("avatar_url")
     val avatarUrl: String? = "",
     @SerializedName("bio")
@@ -70,12 +70,3 @@ data class ResponseGithubUser(
     val url: String? = "",
 )
 
-fun ResponseGithubUser.toGithubUser(): GithubUser = GithubUser(
-    this.login ?: "",
-    this.avatarUrl ?: "",
-    this.name ?: "",
-    this.bio ?: "",
-    this.publicRepos ?: 0,
-    this.followers ?: 0,
-    this.following ?: 0,
-)

@@ -12,4 +12,6 @@
     <string name="username_hint">Enter github profile</string>
     <string name="user_github_acces">user github image</string>
     <string name="search">SEARCH</string>
+    <string name="user_label">User:</string>
+    <string name="followers_label">Followers:</string>
 </resources>
