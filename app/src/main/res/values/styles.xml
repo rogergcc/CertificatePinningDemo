@@ -9,7 +9,7 @@
         <item name="android:foreground">?selectableItemBackground</item>
         <item name="cardCornerRadius">@dimen/card_corner_radius</item>
         <item name="cardPreventCornerOverlap">true</item>
-        <!--<item name="cardUseCompatPadding">true</item>-->
+        <item name="cardUseCompatPadding">true</item>
 
     </style>
 

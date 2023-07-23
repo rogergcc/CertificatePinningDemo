@@ -21,7 +21,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-
             android:id="@+id/et_profileName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +38,6 @@
             android:paddingVertical="@dimen/padding"
 
             android:singleLine="true"
-            android:textColor="?attr/colorPrimaryDark"
             android:textSize="16sp"
 
             />
@@ -64,73 +62,81 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvProfileContainer"
         style="@style/CardViewStyle"
-        android:layout_width="170dp"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         app:cardPreventCornerOverlap="true"
+        app:layout_constraintEnd_toEndOf="@+id/llSearch"
         app:layout_constraintStart_toStartOf="@+id/llSearch"
         app:layout_constraintTop_toBottomOf="@+id/llSearch">
 
-        <ImageView
-            android:id="@+id/iv_profile"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:adjustViewBounds="true"
+            android:orientation="vertical"
+            android:padding="@dimen/card_corner_radius">
 
-            android:contentDescription="@string/user_github_acces"
-            android:src="@mipmap/icon_octogithub" />
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+
+                android:contentDescription="@string/user_github_acces"
+                android:src="@mipmap/icon_octogithub" />
+
+            <TextView
+                android:id="@+id/tvUserLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/user_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvGithuUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textSize="16sp"
+                tools:text="User name example" />
+
+            <TextView
+                android:id="@+id/tvFollowersLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/followers_label"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/tvFollowers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                tools:text="3" />
+
+            <TextView
+                android:id="@+id/tvFollowinLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/following_label"
+                android:textStyle="bold"
+                tools:text="@string/following_label" />
+
+            <TextView
+                android:id="@+id/tvFollowing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                tools:text="@string/following_total_message" />
+
+
+        </LinearLayout>
+
     </androidx.cardview.widget.CardView>
-
-
-    <TextView
-        android:id="@+id/tvUserLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/user_label"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/cvProfileContainer"
-        app:layout_constraintTop_toBottomOf="@+id/cvProfileContainer" />
-
-    <TextView
-        android:id="@+id/tvGithuUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="User name example"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tvUserLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserLabel" />
-
-    <TextView
-        android:id="@+id/tvFollowersLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/followers_label"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvGithuUserName"
-        app:layout_constraintTop_toBottomOf="@+id/tvGithuUserName" />
-
-
-    <TextView
-        android:id="@+id/tvFollowers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="@+id/tvFollowersLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvFollowersLabel"
-        tools:text="3" />
-
-    <TextView
-        android:id="@+id/tv_following"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tvGithuUserName"
-        app:layout_constraintTop_toBottomOf="@+id/tvFollowers"
-        tools:text="4" />
 
 
     <Button
@@ -138,7 +144,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

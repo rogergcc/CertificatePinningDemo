@@ -9,9 +9,13 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="username_hint">Enter github profile</string>
+    <string name="username_hint">Enter github name</string>
     <string name="user_github_acces">user github image</string>
     <string name="search">SEARCH</string>
     <string name="user_label">User:</string>
     <string name="followers_label">Followers:</string>
+    <string name="following_label">Following:</string>
+    <string name="followers_total_message">%s followers</string>
+    <string name="following_total_message">%s following</string>
+    <string name="user_not_found_message">user not found</string>
 </resources>

@@ -8,7 +8,6 @@ import com.rogergcc.certificatepinningdemo.data.cloud.response.GithubUserRespons
  * year 2023 .
  */
 object Mappers {
-
     fun GithubUserResponse.toGithubUser(): GithubUserDomain = GithubUserDomain(
         this.login ?: "",
         this.avatarUrl ?: "",

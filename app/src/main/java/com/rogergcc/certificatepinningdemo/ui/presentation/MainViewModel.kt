@@ -2,8 +2,9 @@ package com.rogergcc.certificatepinningdemo.ui.presentation
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.rogergcc.certificatepinningdemo.core.GsonProvider
+import com.rogergcc.certificatepinningdemo.core.Resource
 import com.rogergcc.certificatepinningdemo.data.cloud.GithubApi
-import com.rogergcc.certificatepinningdemo.data.cloud.GsonProvider
 import com.rogergcc.certificatepinningdemo.data.cloud.response.ErrorResponse
 import com.rogergcc.certificatepinningdemo.data.cloud.response.GithubUserResponse
 import com.rogergcc.certificatepinningdemo.domain.GithubUserDomain
@@ -27,6 +28,10 @@ class MainViewModel(
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
     }
+
+    private val _resultLiveData = MutableLiveData<Resource<GithubUserDomain>>()
+    val resultLiveData: LiveData<Resource<GithubUserDomain>> get() = _resultLiveData
+
 
     fun getUserData(profile: String) =
         viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
@@ -73,12 +78,24 @@ class MainViewModel(
         }
 
     fun fetchUserData(profile: String) {
-        viewModelScope.launch {
-            val response = repository.getUserDetails(profile)
-            response?.let {
-                _userData.postValue(it)
-            } ?: Log.d("MainViewModel", "getUserData: Response body is null")
+        viewModelScope.launch(Dispatchers.IO) {
+
+            _resultLiveData.postValue(Resource.Loading)// Emitimos el estado de carga antes de realizar la llamada al Repository
+            try {
+                val response = repository.getUserDetails(profile)
+
+                _resultLiveData.postValue(response)  // Emitimos el resultado obtenido del Repository
+            } catch (e: Exception) {
+                Log.e(
+                    "fetchUserData",
+                    "fetchUserData: ${Resource.Failure(Exception(e.message ?: "Unknown error"))}"
+                )
+                _resultLiveData.value = Resource.Failure(Exception(e.message ?: "Unknown error"))
+
+            }
+
         }
+
     }
 }
 
