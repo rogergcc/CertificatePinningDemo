@@ -2,9 +2,9 @@ package com.rogergcc.certificatepinningdemo.ui.presentation
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.rogergcc.certificatepinningdemo.core.GsonProvider
+import com.rogergcc.certificatepinningdemo.core.ObjetsProviders
 import com.rogergcc.certificatepinningdemo.core.Resource
-import com.rogergcc.certificatepinningdemo.data.cloud.GithubApi
+import com.rogergcc.certificatepinningdemo.data.cloud.api.GithubApiInstance
 import com.rogergcc.certificatepinningdemo.data.cloud.response.ErrorResponse
 import com.rogergcc.certificatepinningdemo.data.cloud.response.GithubUserResponse
 import com.rogergcc.certificatepinningdemo.domain.GithubUserDomain
@@ -36,7 +36,7 @@ class MainViewModel(
     fun getUserData(profile: String) =
         viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             try {
-                val response = GithubApi.retrofitService.getUserDataResponseBody(profile)
+                val response = GithubApiInstance.retrofitService.getUserDataResponseBody(profile)
 //                if (response.isSuccessful){
 //                    val responseBody = response.body()?.string()
 //                    val gson = Gson()
@@ -54,7 +54,7 @@ class MainViewModel(
 //                }
                 if (response.isSuccessful) {
                     response.body()?.let { responseBody ->
-                        val githubUserResponse = GsonProvider.gson.fromJson(
+                        val githubUserResponse = ObjetsProviders.gson.fromJson(
                             responseBody.string(),
                             GithubUserResponse::class.java
                         )
@@ -65,7 +65,7 @@ class MainViewModel(
                 } else {
                     val errorBody = response.errorBody()?.string()
                     val errorResponse =
-                        GsonProvider.gson.fromJson(errorBody, ErrorResponse::class.java)
+                        ObjetsProviders.gson.fromJson(errorBody, ErrorResponse::class.java)
                     _errorNotFoundUser.postValue(errorResponse)
                     Log.d(
                         "MainViewModel",
@@ -80,17 +80,17 @@ class MainViewModel(
     fun fetchUserData(profile: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            _resultLiveData.postValue(Resource.Loading)// Emitimos el estado de carga antes de realizar la llamada al Repository
+            _resultLiveData.postValue(Resource.Loading)// Emitimos el estado de carga antes
             try {
                 val response = repository.getUserDetails(profile)
 
                 _resultLiveData.postValue(response)  // Emitimos el resultado obtenido del Repository
             } catch (e: Exception) {
                 Log.e(
-                    "fetchUserData",
+                    "MainViewModel",
                     "fetchUserData: ${Resource.Failure(Exception(e.message ?: "Unknown error"))}"
                 )
-                _resultLiveData.value = Resource.Failure(Exception(e.message ?: "Unknown error"))
+                _resultLiveData.postValue(Resource.Failure(Exception(e.message ?: "Unknown error")))
 
             }
 

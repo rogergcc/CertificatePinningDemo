@@ -1,8 +1,8 @@
 package com.rogergcc.certificatepinningdemo.data
 
-import com.rogergcc.certificatepinningdemo.core.GsonProvider
+import com.rogergcc.certificatepinningdemo.core.ObjetsProviders
 import com.rogergcc.certificatepinningdemo.core.Resource
-import com.rogergcc.certificatepinningdemo.data.cloud.GithubApiService
+import com.rogergcc.certificatepinningdemo.data.cloud.api.GithubApiService
 import com.rogergcc.certificatepinningdemo.data.cloud.response.GithubUserResponse
 import com.rogergcc.certificatepinningdemo.domain.GithubUserDomain
 import com.rogergcc.certificatepinningdemo.domain.IGithubRepository
@@ -33,7 +33,7 @@ class GithubRepositoryImpl(private val apiService: GithubApiService) : IGithubRe
                 return Resource.Failure(Exception("Parsing error"))
             }
             val successResponse =
-                GsonProvider.gson.fromJson(json, GithubUserResponse::class.java)
+                ObjetsProviders.gson.fromJson(json, GithubUserResponse::class.java)
             return Resource.Success(successResponse.toGithubUser())
 
         } catch (e: Exception) {

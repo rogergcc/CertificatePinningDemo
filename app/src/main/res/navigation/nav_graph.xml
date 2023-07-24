@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.rogergcc.certificatepinningdemo.ui.FirstFragment"
+        android:name="com.rogergcc.certificatepinningdemo.ui.SearchUserFragment"
         android:label="Search User"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_search_user">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"

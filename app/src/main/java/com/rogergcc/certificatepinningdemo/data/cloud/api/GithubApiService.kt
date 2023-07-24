@@ -1,4 +1,4 @@
-package com.rogergcc.certificatepinningdemo.data.cloud
+package com.rogergcc.certificatepinningdemo.data.cloud.api
 
 import com.rogergcc.certificatepinningdemo.data.cloud.response.GitHubReposResponse
 import com.rogergcc.certificatepinningdemo.data.cloud.response.GithubUserResponse

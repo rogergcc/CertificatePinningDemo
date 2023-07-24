@@ -1,4 +1,4 @@
-package com.rogergcc.certificatepinningdemo.data.cloud
+package com.rogergcc.certificatepinningdemo.data.cloud.api
 
 import com.rogergcc.certificatepinningdemo.BuildConfig
 import okhttp3.CertificatePinner
@@ -7,7 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object GithubApi {
+object GithubApiInstance {
     private const val BASE_URL = "https://api.github.com/"
     private const val USER_NOT_FOUND =
         "https://octodex.github.com/images/octocat-de-los-muertos.jpg"
@@ -58,5 +58,6 @@ object GithubApi {
     val retrofitService: GithubApiService by lazy {
         retrofit.create(GithubApiService::class.java)
     }
+
 
 }
