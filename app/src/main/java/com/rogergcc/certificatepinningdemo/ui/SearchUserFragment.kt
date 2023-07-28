@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.rogergcc.certificatepinningdemo.R
-import com.rogergcc.certificatepinningdemo.core.Resource
+import com.rogergcc.certificatepinningdemo.core.ResourceState
 import com.rogergcc.certificatepinningdemo.data.GithubRepositoryImpl
 import com.rogergcc.certificatepinningdemo.data.cloud.api.GithubApiInstance
 import com.rogergcc.certificatepinningdemo.databinding.FragmentSearchUserBinding
@@ -56,12 +55,15 @@ class SearchUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
+//        binding.btnSearch.setOnClickListener {
+////            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+//
+//
+//        }
 
         binding.btnSearch.setOnClickListener {
             if (binding.etProfileName.text.isNotBlank()) {
+                binding.etProfileName.hideKeyboard()
                 performSearch()
 //                viewModel.fetchUserData(binding.etProfileName.text.toString())
 
@@ -87,16 +89,16 @@ class SearchUserFragment : Fragment() {
         viewModel.resultLiveData.observe(viewLifecycleOwner) { resources ->
 
             when (resources) {
-                is Resource.Loading -> {
+                is ResourceState.Loading -> {
                     logDegub("Loading")
                     showToast("Loading")
                 }
-                is Resource.Success -> {
+                is ResourceState.Success -> {
                     logDegub("Success")
                     onResultSuccess(resources.data)
 //                    progressBar.hide()
                 }
-                is Resource.Failure -> {
+                is ResourceState.Failure -> {
                     logDegub("Failure")
                     showToast("Failure")
                     onsResultError(resources)
@@ -111,11 +113,10 @@ class SearchUserFragment : Fragment() {
         Log.d("SearchUserFragment", "onViewCreated: $message")
     }
 
-    private fun onsResultError(resources: Resource.Failure) {
+    private fun onsResultError(resources: ResourceState.Failure) {
         binding.apply {
-            tvGithuUserName.text = resources.exception.message
-            tvFollowers.text = resources.exception.localizedMessage
-            tvFollowing.text = resources.exception.message
+            tvGithuUserName.text = "Something went wrong"
+            tvFollowers.text = ""
             ivProfile.loadImageFromResource(R.mipmap.icon_octogithub)
         }
     }
@@ -140,8 +141,6 @@ class SearchUserFragment : Fragment() {
 
     private fun performSearch() {
         binding.etProfileName.clearFocus()
-
-        //...perform search
         viewModel.fetchUserData(binding.etProfileName.text.toString())
     }
 

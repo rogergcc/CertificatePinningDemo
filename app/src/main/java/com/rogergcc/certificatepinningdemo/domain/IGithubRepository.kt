@@ -1,9 +1,9 @@
 package com.rogergcc.certificatepinningdemo.domain
 
-import com.rogergcc.certificatepinningdemo.core.Resource
+import com.rogergcc.certificatepinningdemo.core.ResourceState
 
 
 interface IGithubRepository {
 
-    suspend fun getUserDetails(user: String): Resource<GithubUserDomain>
+    suspend fun getUserDetails(user: String): ResourceState<GithubUserDomain>
 }

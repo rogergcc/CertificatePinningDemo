@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object GithubApiInstance {
     private const val BASE_URL = "https://api.github.com/"
@@ -25,7 +26,8 @@ object GithubApiInstance {
     //2nd certificate works Jg78dOE+fydIGk19swWwiypUSR6HWZybfnJG/8G7pyM=
     private val certificatePinner: CertificatePinner by lazy {
         CertificatePinner.Builder()
-            .add("*.github.com", "sha256/Jg78dOE+fydIGk19swWwiypUSR6HWZybfnJG/8G7pyM=")
+//            .add("*.github.com", "sha256/Jg78dOE+fydIGk19swWwiypUSR6HWZybfnJG/8G7pyM=")
+            .add("*.github.com", "sha256/Jg78dOE+fydIGk19swWwiypUSR6HWZybfnJG/8G7xxx=")
             .build()
     }
 //    private val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
@@ -42,10 +44,10 @@ object GithubApiInstance {
 
     private val okHttpClient = OkHttpClient.Builder()
         .certificatePinner(certificatePinner)
-        .addInterceptor(loggingInterceptor)
-//        .connectTimeout(30, TimeUnit.SECONDS)
-//        .readTimeout(30, TimeUnit.SECONDS)
-//        .writeTimeout(30, TimeUnit.SECONDS)
+//        .addInterceptor(loggingInterceptor)
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
         .build()
 
 
