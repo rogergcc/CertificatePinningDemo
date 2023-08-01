@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import com.rogergcc.certificatepinningdemo.BuildConfig
 import com.rogergcc.certificatepinningdemo.R
 import com.rogergcc.certificatepinningdemo.core.ResourceState
 import com.rogergcc.certificatepinningdemo.data.GithubRepositoryImpl
@@ -18,6 +20,9 @@ import com.rogergcc.certificatepinningdemo.ui.common.hideKeyboard
 import com.rogergcc.certificatepinningdemo.ui.common.loadImageFromResource
 import com.rogergcc.certificatepinningdemo.ui.common.loadUrl
 import com.rogergcc.certificatepinningdemo.ui.common.showToast
+import com.rogergcc.certificatepinningdemo.ui.customs.ErrorDialogFragment
+import com.rogergcc.certificatepinningdemo.ui.customs.ErrorTYpe
+import com.rogergcc.certificatepinningdemo.ui.customs.SHOW_ERROR_DIALOG
 import com.rogergcc.certificatepinningdemo.ui.presentation.GithubViewModelFactory
 import com.rogergcc.certificatepinningdemo.ui.presentation.MainViewModel
 
@@ -55,7 +60,7 @@ class SearchUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.btnSearch.setOnClickListener {
+//        binding.btnNavigate.setOnClickListener {
 ////            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
 //
 //
@@ -65,7 +70,6 @@ class SearchUserFragment : Fragment() {
             if (binding.etProfileName.text.isNotBlank()) {
                 binding.etProfileName.hideKeyboard()
                 performSearch()
-//                viewModel.fetchUserData(binding.etProfileName.text.toString())
 
             }
         }
@@ -98,11 +102,38 @@ class SearchUserFragment : Fragment() {
                     onResultSuccess(resources.data)
 //                    progressBar.hide()
                 }
-                is ResourceState.Failure -> {
-                    logDegub("Failure")
-                    showToast("Failure")
-                    onsResultError(resources)
-//                    progressBar.hide()
+//                is ResourceState.Failure -> {
+//                    logDegub("Failure")
+//                    showToast("Failure")
+////                    showErrorDialog(ErrorTYpe.NO_SSL_PINNING)
+//                    onsResultError(resources)
+////                    progressBar.hide()
+//                }
+                is ResourceState.Error -> {
+                    binding.apply {
+                        tvGithuUserName.text = "-"
+                        tvFollowers.text = "-"
+                        tvFollowing.text = "-"
+
+                        ivProfile.loadImageFromResource(
+                            resources.errorType?.image ?: R.drawable.ic_cancel
+                        )
+                        tvError.text = if (BuildConfig.DEBUG) {
+                            getString(
+                                resources.errorType?.message ?: R.string.unknown_error_message
+                            )
+                        } else {
+                            getString(
+                                R.string.unknown_error_message
+                            )
+                        }
+                    }
+//                    if (resources.errorType == ErrorTYpe.NO_SSL_PINNING) {
+//                        showErrorDialog(ErrorTYpe.NO_SSL_PINNING)
+//                    } else {
+//                        showErrorDialog(ErrorTYpe.UNKNOWN)
+//                    }
+                    showErrorDialog(resources.errorType ?: ErrorTYpe.UNKNOWN)
                 }
             }
 
@@ -113,13 +144,17 @@ class SearchUserFragment : Fragment() {
         Log.d("SearchUserFragment", "onViewCreated: $message")
     }
 
-    private fun onsResultError(resources: ResourceState.Failure) {
-        binding.apply {
-            tvGithuUserName.text = "Something went wrong"
-            tvFollowers.text = ""
-            ivProfile.loadImageFromResource(R.mipmap.icon_octogithub)
-        }
-    }
+//    private fun onsResultError(resourceState: ResourceState.Error) {
+//        binding.apply {
+//            tvGithuUserName.text = "Algo ocurrio"
+//            ivProfile.loadImageFromResource(R.drawable.ic_cancel)
+//            tvError.text = if (BuildConfig.DEBUG) {
+//                resourceState.exception.message
+//            } else {
+//                "Error"
+//            }
+//        }
+//    }
 
     private fun onResultSuccess(userData: GithubUserDomain) {
         binding.apply {
@@ -142,6 +177,11 @@ class SearchUserFragment : Fragment() {
     private fun performSearch() {
         binding.etProfileName.clearFocus()
         viewModel.fetchUserData(binding.etProfileName.text.toString())
+    }
+
+    fun showErrorDialog(errorTYpe: ErrorTYpe) {
+        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+        ErrorDialogFragment(errorTYpe).show(fragmentManager, SHOW_ERROR_DIALOG)
     }
 
     override fun onDestroyView() {

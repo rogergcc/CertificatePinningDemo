@@ -18,4 +18,17 @@
     <string name="followers_total_message">%s followers</string>
     <string name="following_total_message">%s following</string>
     <string name="user_not_found_message">user not found</string>
+
+    <string name="error_message">"Something went wrong.\nWe have informed our team about this problem.\nTerribly sorry …"</string>
+
+
+    <string name="no_internet_title">No internet found</string>
+    <string name="no_internet_message">Failed to get … Looks like you don\'t have internet connection</string>
+
+    <string name="unknown_error_title">Something went wrong</string>
+    <string name="unknown_error_message">Looks like something went wrong while getting your data. Please try again later</string>
+    <string name="no_sslpinning_title">Certificate Not Valid</string>
+    <string name="no_sslpinning_message">SSLPeerUnverifiedException Certificate pinning failure</string>
+
+
 </resources>

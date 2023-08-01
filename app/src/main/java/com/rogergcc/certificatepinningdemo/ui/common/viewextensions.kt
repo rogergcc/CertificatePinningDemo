@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 fun View.hide() {
     this.visibility = View.GONE
@@ -34,9 +33,10 @@ fun ImageView.loadUrl(url: String) {
 fun ImageView.loadImageFromResource(@DrawableRes resourceId: Int) {
     Glide.with(context)
         .load(resourceId)
-        .centerCrop()
-        .diskCacheStrategy(DiskCacheStrategy.ALL)
+//        .centerCrop()
+//        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(this)
+
 }
 
 inline fun <T : View> T.showIf(condition: (T) -> Boolean) {
