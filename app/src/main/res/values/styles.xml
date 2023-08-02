@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CardViewStyle" parent="Base.CardView">
+
+        <!--<item name="android:foreground">@drawable/ripple_custom</item>-->
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardPreventCornerOverlap">true</item>
+        <item name="cardUseCompatPadding">true</item>
+
+    </style>
+
+    <style name="TextViewStyle" parent="TextAppearance.AppCompat.Body2">
+        <!--        <item name="android:foreground">@drawable/ripple_custom</item>-->
+        <item name="cardPreventCornerOverlap">true</item>
+        <!--        <item name="android:fontFamily">@font/varela_round</item>-->
+
+    </style>
+
+    <style name="parent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <!--        <item name="fontFamily">@font/poppins_medium</item>-->
+        <!--        <item name="android:fontFamily">@font/poppins_medium</item>-->
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <!--        <item name="fontFamily">@font/raleway_regular</item>-->
+        <!--        <item name="android:fontFamily">@font/raleway_regular</item>-->
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

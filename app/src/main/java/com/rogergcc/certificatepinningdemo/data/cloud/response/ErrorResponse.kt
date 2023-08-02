@@ -1,4 +1,4 @@
-package com.rogergcc.certificatepinningdemo.network
+package com.rogergcc.certificatepinningdemo.data.cloud.response
 
 import com.google.gson.annotations.SerializedName
 
@@ -6,5 +6,5 @@ data class ErrorResponse(
     @SerializedName("message")
     val message: String? = "",
     @SerializedName("documentation_url")
-    val urldetails: String? = "",
+    val detailers: String? = "",
 )
